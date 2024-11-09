@@ -54,7 +54,7 @@ public class dialog : MonoBehaviour
         DialogText dialog6 = new DialogText("Haha, I love the sense of humour of avocados, let's get to work now!");
         dialogManager.StartDialog(dialog5);
 
-        dialog5.choices.Add(new Choice("Let me help you with my Avocado Super Powers.", ));
+        dialog5.choices.Add(new Choice("Let me help you with my Avocado Super Powers.", dialog3));
 
         
 
