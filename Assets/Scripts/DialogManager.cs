@@ -6,9 +6,13 @@ using System.Collections;
 public class DialogManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogText;
-    public Button choiceButton1;
-    public Button choiceButton2;
+    public GameObject choiceButton1;
+    public TextMeshProUGUI buttonText1;
+    public TextMeshProUGUI buttonText2;
+    public GameObject choiceButton2;
     public float typingSpeed;
+    public bool isTyping = false;
+    public bool hasChosen = false;
 
     private DialogText currentDialog; 
 
@@ -21,6 +25,7 @@ public class DialogManager : MonoBehaviour
     public void StartDialog(DialogText startingDialog)
     {
         currentDialog = startingDialog;
+        hasChosen = false;
         StartCoroutine(Type());
     }
 
@@ -31,10 +36,12 @@ public class DialogManager : MonoBehaviour
         char[] letters = currentDialog.text.ToCharArray();
         foreach (char letter in letters)
         {
+            isTyping = true;
             dialogText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
         ShowChoices();
+        isTyping = false;
     }
 
     private void ShowChoices()
@@ -48,14 +55,17 @@ public class DialogManager : MonoBehaviour
         }
         else
         {
-            choiceButton1.gameObject.SetActive(false);
-            choiceButton2.gameObject.SetActive(false);
+            choiceButton1.SetActive(false);
+            choiceButton2.SetActive(false);
         }
     }
 
     private void OnChoiceMade(int choiceIndex)
     {
-        DialogText nextDialog = currentDialog.choices[choiceIndex].nextDialog;
+        hasChosen = true;
+        DialogText nextDialog = null;
+        if(currentDialog != null)
+            nextDialog = currentDialog.choices[choiceIndex].nextDialog;
         if (nextDialog != null)
         {
             currentDialog = nextDialog;
