@@ -11,9 +11,12 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal"); 
         float vertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(horizontal, vertical, 0f).normalized;
+        Vector3 movement = new Vector3(horizontal, vertical, 0f);
 
-        transform.Translate(movement * speed * Time.deltaTime, Space.World);
+        GetComponent<Rigidbody2D>().MovePosition(new Vector2((transform.position.x + horizontal * speed * Time.deltaTime),
+            transform.position.y + vertical * speed * Time.deltaTime));
+        
+        //transform.Translate(movement * speed * Time.deltaTime, Space.World);
     }
 }
 
