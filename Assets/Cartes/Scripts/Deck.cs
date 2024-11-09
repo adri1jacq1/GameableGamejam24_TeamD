@@ -5,8 +5,13 @@ using UnityEngine;
 public class Deck : MonoBehaviour
 {
     [SerializeField] private List<Card> deckCards = new ();
+    [SerializeField] private Hand hand;
+    [SerializeField] private float scale;
 
     private List<Card> deck = new();
+
+   
+
 
 
 
@@ -20,6 +25,9 @@ public class Deck : MonoBehaviour
         GameObject givenCard;
         if (deck.Count > 0) {
             givenCard = DisplayCard.CreateCard(deck[0]);
+            hand.AddCard(givenCard);
+            givenCard.transform.localScale = new Vector3(scale, scale, scale);
+            givenCard.GetComponent<Drag>().hand = hand;
             deck.RemoveAt(0);
         }
 
