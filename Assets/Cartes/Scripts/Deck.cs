@@ -28,6 +28,7 @@ public class Deck : MonoBehaviour
             hand.AddCard(givenCard);
             givenCard.transform.localScale = new Vector3(scale, scale, scale);
             givenCard.GetComponent<Drag>().hand = hand;
+            givenCard.GetComponent<Drag>().initScale = new Vector3(scale, scale, scale);
             deck.RemoveAt(0);
         }
 
