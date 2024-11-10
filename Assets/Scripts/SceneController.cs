@@ -17,7 +17,7 @@ public class SceneController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        GetCurrentScene();
+        //GetCurrentScene();
         lastPosition = transform.position;
         canvas.SetActive(true);
         StartCoroutine(Wait());
@@ -42,17 +42,17 @@ public class SceneController : MonoBehaviour
 
     public static void GetCurrentScene()
     {
-        int currentScene = SceneManager.GetActiveScene().buildIndex;
-        if (currentScene == 1)
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Narration")
             previousScene = "Narration";
-        else if (currentScene == 2)
+        else if (currentScene == "Burger")
             previousScene = "Burger";
-        else if (currentScene == 3)
+        else if (currentScene == "Poutine")
             previousScene = "Poutine";
-        else if (currentScene == 4)
+        else if (currentScene == "Pizza")
             previousScene = "Pizza";
 
-        previousScene = "Main";
+        Debug.Log(previousScene);
     }
 
 }
