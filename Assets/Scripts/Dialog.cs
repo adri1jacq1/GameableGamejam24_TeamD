@@ -31,6 +31,8 @@ public class Choice
 public class Dialog : MonoBehaviour
 {
     public DialogManager dialogManager;
+    public bool dialogOver = false;
+
 
     void Start()
     {
@@ -70,8 +72,6 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Dialog3()
     {
-        dialogManager.hasChosen = false;
-
         DialogText dialog5 = new DialogText("Not being able to attend classes... Student's worst nightmare...");
         DialogText dialog6 = new DialogText("Haha, I love the sense of humour of avocados, let's get to work now!");
 
@@ -82,6 +82,8 @@ public class Dialog : MonoBehaviour
 
         yield return new WaitUntil(() => dialogManager.hasChosen == true);
         yield return new WaitUntil(() => dialogManager.isTyping == false);
+
+        dialogOver = true;
 
     }
 
