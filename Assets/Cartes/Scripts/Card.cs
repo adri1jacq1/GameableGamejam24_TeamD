@@ -16,6 +16,8 @@ public class Card : ScriptableObject
 
     public Sprite image;
 
+    public Sprite backGround;
+
 
     public Color32 color;
 }

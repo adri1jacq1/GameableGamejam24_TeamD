@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
-    [SerializeField] private List<Card> deckCards = new ();
-    [SerializeField] private Hand hand;
+    public List<Card> deckCards = new ();
+    public Hand hand;
     [SerializeField] private float scale;
-
-    private List<Card> deck = new();
-
-   
+    [SerializeField] private bool isEnemy;
 
 
+    public List<Card> deck = new();
 
 
     public void Start() {
-        foreach (Card card in deckCards) {
-            deck.Add(card);
-        }
     }
 
     public void DrawCard() {
@@ -27,10 +22,19 @@ public class Deck : MonoBehaviour
             givenCard = DisplayCard.CreateCard(deck[0]);
             hand.AddCard(givenCard);
             givenCard.transform.localScale = new Vector3(scale, scale, scale);
+            givenCard.GetComponent<Drag>().initScale = new Vector3(scale, scale, scale);
             givenCard.GetComponent<Drag>().hand = hand;
+            if (isEnemy) {
+                givenCard.GetComponent<CardStyle>().toggleFront(false);
+            }
             deck.RemoveAt(0);
         }
 
+    }
+
+    public void PlaceBackCard(GameObject card) {
+        deck.Add(card.GetComponent<CardStyle>().cardStats);
+        Destroy(card);
     }
 
 }
