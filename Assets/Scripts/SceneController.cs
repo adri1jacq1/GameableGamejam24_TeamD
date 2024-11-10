@@ -57,7 +57,7 @@ public class SceneController : MonoBehaviour
 
     IEnumerator WaitBeforeDisplay()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(3);
     }
     IEnumerator Wait()
     {
