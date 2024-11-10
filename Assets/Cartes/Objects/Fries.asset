@@ -17,8 +17,8 @@ MonoBehaviour:
   cardName: Fries
   description: No Nutrients!
   givesDefense: 0
-  image: {fileID: 21300000, guid: 4d086b4e1c4b6334195efb427d6a37c8, type: 3}
-  backGround: {fileID: 21300000, guid: 4d45330c14597c24089f36f1e3d248bb, type: 3}
+  image: {fileID: 21300000, guid: 9b2f7a26e3ff4634cb021a7dc3ea58ef, type: 3}
+  backGround: {fileID: 21300000, guid: 21af12a67cf301f4bb1eec82791dc4b9, type: 3}
   color:
     serializedVersion: 2
     rgba: 4284011007

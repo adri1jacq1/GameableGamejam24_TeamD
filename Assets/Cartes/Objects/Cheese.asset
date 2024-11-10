@@ -17,8 +17,8 @@ MonoBehaviour:
   cardName: Cheese
   description: To much fat!
   givesDefense: 0
-  image: {fileID: 21300000, guid: 4d086b4e1c4b6334195efb427d6a37c8, type: 3}
-  backGround: {fileID: 21300000, guid: 4d45330c14597c24089f36f1e3d248bb, type: 3}
+  image: {fileID: 21300000, guid: f5779b00c2c6be946bd6a57565a3fc76, type: 3}
+  backGround: {fileID: 21300000, guid: 7478a2895a367e34689f19ad25330461, type: 3}
   color:
     serializedVersion: 2
     rgba: 4284011007

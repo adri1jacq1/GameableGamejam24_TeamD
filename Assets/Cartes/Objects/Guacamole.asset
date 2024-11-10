@@ -17,8 +17,8 @@ MonoBehaviour:
   cardName: Guacamole
   description: Taco Tuesday!
   givesDefense: 0
-  image: {fileID: 21300000, guid: 4d5336281ebd72742b429630cfeee756, type: 3}
-  backGround: {fileID: 21300000, guid: 4d45330c14597c24089f36f1e3d248bb, type: 3}
+  image: {fileID: 21300000, guid: ff8776f1780bc104082dabac510eabf6, type: 3}
+  backGround: {fileID: 21300000, guid: b61b2065255c0f84da22f291b58185d3, type: 3}
   color:
     serializedVersion: 2
     rgba: 4278255381

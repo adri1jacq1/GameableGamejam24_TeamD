@@ -17,8 +17,8 @@ MonoBehaviour:
   cardName: Olive
   description: Round and round
   givesDefense: 1
-  image: {fileID: 21300000, guid: 4d086b4e1c4b6334195efb427d6a37c8, type: 3}
-  backGround: {fileID: 21300000, guid: 4d45330c14597c24089f36f1e3d248bb, type: 3}
+  image: {fileID: 21300000, guid: e76775904cc7ae74fbc6c170f75b6e2b, type: 3}
+  backGround: {fileID: 21300000, guid: 2441859fb5e9bc04c96e0af9fde7e8ee, type: 3}
   color:
     serializedVersion: 2
     rgba: 4278190335

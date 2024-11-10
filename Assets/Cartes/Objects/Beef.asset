@@ -17,8 +17,8 @@ MonoBehaviour:
   cardName: Beef
   description: Artery-Clogger
   givesDefense: 0
-  image: {fileID: 21300000, guid: 4d086b4e1c4b6334195efb427d6a37c8, type: 3}
-  backGround: {fileID: 21300000, guid: 4d45330c14597c24089f36f1e3d248bb, type: 3}
+  image: {fileID: 21300000, guid: 16c4a2cd4abd63b4780dac2089e6e560, type: 3}
+  backGround: {fileID: 21300000, guid: 0b1c3c48b99a17e4fb858d8beb990f47, type: 3}
   color:
     serializedVersion: 2
     rgba: 4278190335
