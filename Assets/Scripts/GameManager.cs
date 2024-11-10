@@ -28,19 +28,19 @@ public class GameManager : MonoBehaviour
             NarrationToDeactivate.SetActive(false);
 
         }
-        if (SceneController.previousScene == "Burger")
+        if (SceneController.previousScene == "Burger" && SceneController.win)
         {
             BurgerBlockToActivate.SetActive(true);
             BurgerBlockToDeactivate.SetActive(false);
             BurgerToDeactivate.SetActive(false);
         }
-        if (SceneController.previousScene == "Poutine")
+        if (SceneController.previousScene == "Poutine" && SceneController.win)
         {
             PoutineBlockToActivate.SetActive(true);
             PoutineBlockToDeactivate.SetActive(false);
             PoutineToDeactivate.SetActive(false);
         }
-        if (SceneController.previousScene == "Pizza")
+        if (SceneController.previousScene == "Pizza" && SceneController.win)
         {
             PizzaBlockToActivate.SetActive(true);
             PizzaBlockToDeactivate.SetActive(false);

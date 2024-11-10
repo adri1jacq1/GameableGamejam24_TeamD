@@ -24,8 +24,8 @@ public class TurnSystem : MonoBehaviour {
 
     public GameObject cardContainer;
 
-    static public bool lose = false;
-    static public bool win = false;
+    public bool lose = false;
+    public bool win = false;
 
 
     public void Start() {

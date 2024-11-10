@@ -8,8 +8,14 @@ public class SceneController : MonoBehaviour
     public int indexLevel;
     public float WaitTime;
     public GameObject canvas;
+
+    public GameObject canvasLose;
     
     public Dialog dialog;
+
+    public TurnSystem turnSystem;
+
+    public static bool win = false;
 
 
     public static Vector3 lastPosition;
@@ -17,7 +23,7 @@ public class SceneController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        //GetCurrentScene();
+        win = false;
         lastPosition = transform.position;
         canvas.SetActive(true);
         StartCoroutine(Wait());
@@ -28,12 +34,31 @@ public class SceneController : MonoBehaviour
         if (dialog != null && dialog.dialogOver)
         {
             GetCurrentScene();
-            lastPosition = transform.position;
             canvas.SetActive(true);
+            StartCoroutine(Wait());
+        }
+        else if (turnSystem != null && turnSystem.win)
+        {
+            win = true;
+            GetCurrentScene();
+            StartCoroutine(WaitBeforeDisplay());
+            canvas.SetActive(true);
+            StartCoroutine(Wait());
+        }
+        else if (turnSystem != null && turnSystem.lose)
+        {
+            win = false;
+            StartCoroutine(WaitBeforeDisplay());
+            lastPosition = Vector3.zero;
+            canvasLose.SetActive(true);
             StartCoroutine(Wait());
         }
     }
 
+    IEnumerator WaitBeforeDisplay()
+    {
+        yield return new WaitForSeconds(5.0f);
+    }
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(WaitTime);
@@ -45,11 +70,11 @@ public class SceneController : MonoBehaviour
         string currentScene = SceneManager.GetActiveScene().name;
         if (currentScene == "Narration")
             previousScene = "Narration";
-        else if (currentScene == "Burger")
+        else if (currentScene == "BurgerFight")
             previousScene = "Burger";
-        else if (currentScene == "Poutine")
+        else if (currentScene == "PoutineFight")
             previousScene = "Poutine";
-        else if (currentScene == "Pizza")
+        else if (currentScene == "PizzaFight")
             previousScene = "Pizza";
 
         Debug.Log(previousScene);

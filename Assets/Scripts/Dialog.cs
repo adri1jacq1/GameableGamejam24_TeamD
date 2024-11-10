@@ -43,7 +43,7 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Dialog1()
     {
-        DialogText dialog1 = new DialogText("I am exasperated");
+        DialogText dialog1 = new DialogText("I am exasperated.");
         DialogText dialog2 = new DialogText("I am Anna Nass, the principal of this school.");
         DialogText dialog3 = new DialogText("Ah...");
 
@@ -72,7 +72,7 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Dialog3()
     {
-        DialogText dialog5 = new DialogText("Not being able to attend classes... Student's worst nightmare...");
+        DialogText dialog5 = new DialogText("Not being able to attend classes... Students' worst nightmare...");
         DialogText dialog6 = new DialogText("Haha, I love the sense of humour of avocados, let's get to work now!");
 
         dialog5.choices.Add(new Choice("Let me help you with my Avocado Super Powers.", dialog6));
