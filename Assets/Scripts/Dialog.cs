@@ -4,10 +4,9 @@ using UnityEngine;
 using TMPro;
 using System;
 
-[Serializable]
 public class DialogText
 {
-    public string text; 
+    public string text;
     public List<Choice> choices;
 
     public DialogText(string text)
@@ -17,11 +16,10 @@ public class DialogText
     }
 }
 
-[Serializable]
 public class Choice
 {
     public string choiceText;
-    public DialogText nextDialog; 
+    public DialogText nextDialog;
 
     public Choice(string choiceText, DialogText nextDialog)
     {
@@ -30,7 +28,7 @@ public class Choice
     }
 }
 
-public class dialog : MonoBehaviour
+public class Dialog : MonoBehaviour
 {
     public DialogManager dialogManager;
 
@@ -77,7 +75,8 @@ public class dialog : MonoBehaviour
         DialogText dialog5 = new DialogText("Not being able to attend classes... Student's worst nightmare...");
         DialogText dialog6 = new DialogText("Haha, I love the sense of humour of avocados, let's get to work now!");
 
-        dialog5.choices.Add(new Choice("Let me help you with my Avocado Super Powers.", dialog3));
+        dialog5.choices.Add(new Choice("Let me help you with my Avocado Super Powers.", dialog6));
+        dialog5.choices.Add(new Choice("It's not my problem.", dialog6));
 
         dialogManager.StartDialog(dialog5);
 
