@@ -15,6 +15,12 @@ public class TurnSystem : MonoBehaviour {
     public bool playerShielded = false;
     public bool enemyShielded = false;
 
+    public AudioClip punchSound;
+    public AudioClip healSound;
+    public AudioClip shieldSound;
+
+    public AudioSource source;
+
 
     public GameObject playerShield;
     public GameObject enemyShield;
@@ -39,6 +45,10 @@ public class TurnSystem : MonoBehaviour {
         foreach (Card card in playerDeck.deckCards) {
             playerDeck.deck.Add(card);
         }
+
+
+        enemyDeck.Shuffle();
+        playerDeck.Shuffle();
 
         enemyDeck.DrawCard();
         enemyDeck.DrawCard();
@@ -142,43 +152,42 @@ public class TurnSystem : MonoBehaviour {
     }
 
     public IEnumerator DamageEnemy(int attack) {
-        Debug.Log("attackEnemy" + attack);
         StartCoroutine(ChangeLifeEnemy(-1 * attack));
-        yield return new WaitForSeconds(2f);
-        Debug.Log("attacked");
+        yield return new WaitForSeconds(0.01f);
+        source.PlayOneShot(punchSound);
     }
 
     public IEnumerator DamageSelf(int attack) {
-        Debug.Log("attackSelf");
         StartCoroutine(ChangeLifeSelf(-1 * attack));
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.01f);
+        source.PlayOneShot(punchSound);
     }
 
     public IEnumerator HealSelf(int healing) {
-        Debug.Log("HealSelf");
         StartCoroutine(ChangeLifeSelf(healing));
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.01f);
+        source.PlayOneShot(healSound);
     }
 
     public IEnumerator HealEnemy(int healing) {
         StartCoroutine(ChangeLifeEnemy(healing));
-        Debug.Log("HealEnemy");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.01f);
+        source.PlayOneShot(healSound);
     }
     public IEnumerator ShieldSelf(bool canShield) {
         if (canShield) {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
             playerShield.SetActive(true);
             playerShielded = true;
-            Debug.Log("ShieldSelf");
+            source.PlayOneShot(shieldSound);
         }
     }
     public IEnumerator ShieldEnemy(bool canShield) {
         if (canShield) {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
             enemyShield.SetActive(true);
             enemyShielded = true;
-            Debug.Log("ShieldEnemy");
+            source.PlayOneShot(shieldSound);
         }
     }
 

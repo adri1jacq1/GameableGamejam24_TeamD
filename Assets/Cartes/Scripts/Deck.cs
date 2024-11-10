@@ -13,6 +13,8 @@ public class Deck : MonoBehaviour
     public List<Card> deck = new();
 
 
+    public Card container;
+
     public void Start() {
     }
 
@@ -35,6 +37,18 @@ public class Deck : MonoBehaviour
     public void PlaceBackCard(GameObject card) {
         deck.Add(card.GetComponent<CardStyle>().cardStats);
         Destroy(card);
+    }
+
+    public void Shuffle() {
+        for (int index = 0; index < deck.Count; index++) {
+            int rand = Random.Range(index, deck.Count);
+            container = deck[index];
+            deck[index] = deck[rand];
+            deck[rand] = container;
+        }
+
+
+
     }
 
 }
