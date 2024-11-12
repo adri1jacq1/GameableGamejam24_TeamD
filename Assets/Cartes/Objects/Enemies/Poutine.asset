@@ -29,6 +29,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 39c08f85ce6b42c4a9d6bad654633f33, type: 2}
   - {fileID: 11400000, guid: 39c08f85ce6b42c4a9d6bad654633f33, type: 2}
   image: {fileID: 21300000, guid: e83ee0e02596548f2a13649df6be554e, type: 3}
+  background: {fileID: 21300000, guid: f2ed73305ec3d4f4daab3f444ee38a05, type: 3}
+  scaling: 1.5
   color:
     serializedVersion: 2
     rgba: 0

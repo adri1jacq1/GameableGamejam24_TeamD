@@ -18,6 +18,8 @@ public class EnemyStats : ScriptableObject
 
 
     public Sprite image;
+    public Sprite background;
+    public float scaling;
 
 
     public Color32 color;

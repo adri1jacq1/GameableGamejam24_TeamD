@@ -26,7 +26,9 @@ public class SceneController : MonoBehaviour
     public static string previousScene;
 
     public GameObject enemyWin;
+    public GameObject backGroundWin;
     public GameObject enemyLose;
+    public GameObject backGroundLose;
 
 
 
@@ -41,6 +43,7 @@ public class SceneController : MonoBehaviour
         else if (turnSystem != null && turnSystem.win)
         {
             enemyWin.GetComponent<Image>().sprite = turnSystem.enemy.GetComponent<SpriteRenderer>().sprite;
+            backGroundWin.GetComponent<Image>().sprite = turnSystem.backGound.GetComponent<SpriteRenderer>().sprite;
             win = true;
             GetCurrentScene();
             StartCoroutine(WaitBeforeDisplay());
@@ -50,6 +53,7 @@ public class SceneController : MonoBehaviour
         else if (turnSystem != null && turnSystem.lose)
         {
             enemyLose.GetComponent<Image>().sprite = turnSystem.enemy.GetComponent<SpriteRenderer>().sprite;
+            backGroundLose.GetComponent<Image>().sprite = turnSystem.backGound.GetComponent<SpriteRenderer>().sprite;
             win = false;
             StartCoroutine(WaitBeforeDisplay());
             lastPosition = Vector3.zero;

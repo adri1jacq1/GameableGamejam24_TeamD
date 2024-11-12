@@ -15,6 +15,7 @@ public class Encounter : MonoBehaviour {
 
     [SerializeField] private GameObject fightCanvas;
     [SerializeField] private GameObject character;
+    [SerializeField] private GameObject background;
     public Sprite sprite;
 
     void Start() {
@@ -26,6 +27,7 @@ public class Encounter : MonoBehaviour {
         SceneController.lastPosition = transform.position;
         fightCanvas.SetActive(true);
         character.GetComponent<Image>().sprite = sprite;
+        background.GetComponent<Image>().sprite = stats.background;
         TurnSystem.enemyDeckCards = stats.cardDeck;
         TurnSystem.fightIndex = index;
         TurnSystem.enemySprite = sprite;

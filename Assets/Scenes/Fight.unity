@@ -158,7 +158,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 80, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &85789133
 MonoBehaviour:
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a69098a6210eb4c9399c9dbb53137544, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 960214700c76c40caa92c765e1b68086, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 219140264}
   - component: {fileID: 219140263}
   m_Layer: 0
-  m_Name: CanvasPoutineLose
+  m_Name: CanvasLose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 237684857}
   - component: {fileID: 237684856}
   m_Layer: 0
-  m_Name: poutine
+  m_Name: enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1471,6 +1471,7 @@ MonoBehaviour:
   enemyDeck: {fileID: 1685923086}
   playerLifeBar: {fileID: 992006008}
   enemyLifeBar: {fileID: 563143852}
+  backGound: {fileID: 1545800032}
   modifier: 3
   playerShielded: 0
   enemyShielded: 0
@@ -1516,7 +1517,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a8f898b64e680df4cb2ce986920c9fd7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e7c52b742c4805641a714ce09426dcc6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1894,7 +1895,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f2ed73305ec3d4f4daab3f444ee38a05, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ae2e23d5c2f645b1aa4bedd1161b9c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.30588236}
   m_FlipX: 0
   m_FlipY: 0
@@ -1914,8 +1915,8 @@ Transform:
   m_GameObject: {fileID: 1545800032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.14, y: -0.22, z: 0.5}
-  m_LocalScale: {x: 1.5215, y: 1.5215, z: 1.5215}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1954,8 +1955,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 358, y: 19}
+  m_SizeDelta: {x: 80, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1662307115
 MonoBehaviour:
@@ -1977,7 +1978,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a69098a6210eb4c9399c9dbb53137544, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 960214700c76c40caa92c765e1b68086, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2406,7 +2407,7 @@ GameObject:
   - component: {fileID: 1986293060}
   - component: {fileID: 1986293059}
   m_Layer: 0
-  m_Name: poutinee
+  m_Name: enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2522,7 +2523,9 @@ MonoBehaviour:
   dialog: {fileID: 0}
   turnSystem: {fileID: 1141921423}
   enemyWin: {fileID: 237684854}
+  backGroundWin: {fileID: 1800113757}
   enemyLose: {fileID: 1986293057}
+  backGroundLose: {fileID: 371449480}
 --- !u!1 &2130557450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,7 +2539,7 @@ GameObject:
   - component: {fileID: 2130557452}
   - component: {fileID: 2130557451}
   m_Layer: 0
-  m_Name: CanvasPoutineWin
+  m_Name: CanvasWin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

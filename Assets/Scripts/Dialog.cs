@@ -42,8 +42,7 @@ public class Dialog : MonoBehaviour
 
     }
 
-    IEnumerator Dialog1()
-    {
+    IEnumerator Dialog1() {
         yield return new WaitForSeconds(1.75f);
         canvas.SetActive(false);
 

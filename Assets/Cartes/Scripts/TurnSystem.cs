@@ -13,6 +13,8 @@ public class TurnSystem : MonoBehaviour {
 
     public static List<Card> enemyDeckCards;
 
+    public GameObject backGound;
+
     public float modifier;
 
     public bool playerShielded = false;
@@ -58,6 +60,9 @@ public class TurnSystem : MonoBehaviour {
     }
 
     public void Start() {
+
+        backGound.GetComponent<SpriteRenderer>().sprite = enemyStats.background;
+        backGound.transform.localScale *= enemyStats.scaling;
 
         playerMaxLife = playerLife;
         enemyMaxLife = enemyLife;
@@ -316,7 +321,7 @@ public class TurnSystem : MonoBehaviour {
                 EnemySpawning.canSpawn[fightIndex] = false;
 
                 for (int i = 0; i < enemyStats.cardDrops.Count; i++) {
-                    int rand = Random.Range(1, 101);
+                    int rand = Random.Range(0, 100);
                     if (rand < enemyStats.cardChance[i]) {
                         Player.deck.deckCards.Add(enemyStats.cardDrops[i]);
                     }
