@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9195319c02c788742ba53ebb9d19ba62, type: 3}
   m_Name: Guacamole
   m_EditorClassIdentifier: 
-  attack: 10
-  healing: 5
+  attack: 1
+  healing: 6
   cardName: Guacamole
   description: Taco Tuesday!
   givesDefense: 0

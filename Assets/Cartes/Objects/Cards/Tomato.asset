@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9195319c02c788742ba53ebb9d19ba62, type: 3}
   m_Name: Tomato
   m_EditorClassIdentifier: 
-  attack: 4
-  healing: 1
+  attack: 8
+  healing: 2
   cardName: Tomato
   description: Throw that on their face!
   givesDefense: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Olive
   m_EditorClassIdentifier: 
   attack: 1
-  healing: 2
+  healing: 1
   cardName: Olive
   description: Round and round
   givesDefense: 1

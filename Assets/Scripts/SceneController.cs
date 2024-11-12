@@ -13,7 +13,8 @@ public class SceneController : MonoBehaviour
     public GameObject canvasLose;
 
     public Card guacamole;
-    
+    public Card tomato;
+
     public Dialog dialog;
 
     public TurnSystem turnSystem;
@@ -63,6 +64,9 @@ public class SceneController : MonoBehaviour
         Player.deck = new Deck();
         for (int i = 0; i < 5; i++) {
             Player.deck.deckCards.Add(guacamole);
+        }
+        for (int i = 0; i < 5; i++) {
+            Player.deck.deckCards.Add(tomato);
         }
         StartCoroutine(Wait());
     }

@@ -32,6 +32,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 89a3726ab8737f14ea6eb042495a30f9, type: 2}
   - {fileID: 11400000, guid: de6b338db2f2957498d769e9d3ef6257, type: 2}
   - {fileID: 11400000, guid: de6b338db2f2957498d769e9d3ef6257, type: 2}
+  - {fileID: 11400000, guid: de6b338db2f2957498d769e9d3ef6257, type: 2}
+  - {fileID: 11400000, guid: de6b338db2f2957498d769e9d3ef6257, type: 2}
+  - {fileID: 11400000, guid: de6b338db2f2957498d769e9d3ef6257, type: 2}
   image: {fileID: 21300000, guid: 7a22c60349f874c50af949987901e03d, type: 3}
   color:
     serializedVersion: 2

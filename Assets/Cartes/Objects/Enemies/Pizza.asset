@@ -18,21 +18,18 @@ MonoBehaviour:
   cardDrops:
   - {fileID: 11400000, guid: 89a3726ab8737f14ea6eb042495a30f9, type: 2}
   - {fileID: 11400000, guid: 89a3726ab8737f14ea6eb042495a30f9, type: 2}
-  - {fileID: 11400000, guid: 89a3726ab8737f14ea6eb042495a30f9, type: 2}
-  - {fileID: 11400000, guid: 89a3726ab8737f14ea6eb042495a30f9, type: 2}
-  - {fileID: 11400000, guid: 89a3726ab8737f14ea6eb042495a30f9, type: 2}
   cardChance:
-  - 100
-  - 75
   - 50
-  - 25
-  - 10
+  - 50
   cardDeck:
+  - {fileID: 11400000, guid: cc95075241c08524484f678559125ce0, type: 2}
   - {fileID: 11400000, guid: cc95075241c08524484f678559125ce0, type: 2}
   - {fileID: 11400000, guid: cc95075241c08524484f678559125ce0, type: 2}
   - {fileID: 11400000, guid: 8f15c75033a4f5044b763f6953bbdec9, type: 2}
   - {fileID: 11400000, guid: 89a3726ab8737f14ea6eb042495a30f9, type: 2}
   - {fileID: 11400000, guid: 2d5a48ce8572d184d87b628598a9c071, type: 2}
+  - {fileID: 11400000, guid: acb17d6c897634047bc962a23961fe72, type: 2}
+  - {fileID: 11400000, guid: acb17d6c897634047bc962a23961fe72, type: 2}
   - {fileID: 11400000, guid: acb17d6c897634047bc962a23961fe72, type: 2}
   - {fileID: 11400000, guid: acb17d6c897634047bc962a23961fe72, type: 2}
   - {fileID: 11400000, guid: acb17d6c897634047bc962a23961fe72, type: 2}

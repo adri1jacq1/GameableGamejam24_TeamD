@@ -1092,7 +1092,7 @@ Transform:
   m_GameObject: {fileID: 961207629}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.9743, y: -0.3376, z: 0.1}
+  m_LocalPosition: {x: 5.9743, y: -0.3376, z: 0.01}
   m_LocalScale: {x: 3.1481717, y: 0.8326444, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1487,6 +1487,7 @@ MonoBehaviour:
   enemyLifeText: {fileID: 1952291556}
   enemy: {fileID: 954570034}
   cardContainer: {fileID: 0}
+  finished: 0
   lose: 0
   win: 0
   isEnemy: 0
@@ -1754,7 +1755,7 @@ Transform:
   m_GameObject: {fileID: 1473290285}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.2016, y: -1.7581, z: 0.1}
+  m_LocalPosition: {x: -6.2016, y: -1.7581, z: 0.01}
   m_LocalScale: {x: 3.1832204, y: 0.8410975, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2517,6 +2518,7 @@ MonoBehaviour:
   canvas: {fileID: 2130557450}
   canvasLose: {fileID: 219140262}
   guacamole: {fileID: 0}
+  tomato: {fileID: 0}
   dialog: {fileID: 0}
   turnSystem: {fileID: 1141921423}
   enemyWin: {fileID: 237684854}

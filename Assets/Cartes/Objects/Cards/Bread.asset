@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bread
   m_EditorClassIdentifier: 
   attack: 1
-  healing: 3
+  healing: 2
   cardName: Bread
   description: Sugar Free :)
   givesDefense: 1
