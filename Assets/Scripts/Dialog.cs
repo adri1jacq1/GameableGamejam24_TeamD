@@ -55,7 +55,7 @@ public class Dialog : MonoBehaviour
         yield return new WaitUntil(() => dialogManager.hasChosen == true);
         yield return new WaitUntil(() => dialogManager.isTyping == false);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.01f);
         StartCoroutine(Dialog2());
     }
 
@@ -66,7 +66,7 @@ public class Dialog : MonoBehaviour
 
         yield return new WaitUntil(() => dialogManager.isTyping == false);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.01f);
         StartCoroutine(Dialog3());
     }
 

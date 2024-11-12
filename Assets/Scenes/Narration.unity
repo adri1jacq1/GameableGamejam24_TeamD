@@ -988,8 +988,8 @@ MonoBehaviour:
   buttonText1: {fileID: 500508688}
   buttonText2: {fileID: 1396469959}
   choiceButton2: {fileID: 1918047426}
-  typingSpeed: 0.05
-  isTyping: 0
+  typingSpeed: 0.000001
+  isTyping: 1
   hasChosen: 0
 --- !u!4 &1279487565
 Transform:
@@ -1450,6 +1450,7 @@ MonoBehaviour:
   WaitTime: 2
   canvas: {fileID: 1542524808}
   canvasLose: {fileID: 0}
+  guacamole: {fileID: 0}
   dialog: {fileID: 1279487566}
   turnSystem: {fileID: 0}
 --- !u!212 &1584391439

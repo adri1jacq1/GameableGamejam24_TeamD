@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NarrationEnd.unity
     guid: 60e44645105df485585145a93420e6ba
+  - enabled: 1
+    path: Assets/Scenes/Fight.unity
+    guid: 9e564d2e6344de34da1beeb72fc87be0
   m_configObjects: {}

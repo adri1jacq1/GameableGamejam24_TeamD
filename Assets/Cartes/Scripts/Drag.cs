@@ -52,13 +52,17 @@ public class Drag : MonoBehaviour {
 
 
     void OnMouseEnter() {
-        if (!isHovering) {
-            isHovering = true;
+        if (TurnSystem.isPlayerTurn) {
+            if (!isHovering) {
+                isHovering = true;
+            }
         }
     }
 
     void OnMouseExit() {
-        isHovering = false;
+        if (TurnSystem.isPlayerTurn) {
+            isHovering = false;
+        }
     }
 
 

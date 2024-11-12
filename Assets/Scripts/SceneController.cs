@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class SceneController : MonoBehaviour
     public GameObject canvas;
 
     public GameObject canvasLose;
+
+    public Card guacamole;
     
     public Dialog dialog;
 
@@ -21,13 +24,10 @@ public class SceneController : MonoBehaviour
     public static Vector3 lastPosition;
     public static string previousScene;
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        win = false;
-        lastPosition = transform.position;
-        canvas.SetActive(true);
-        StartCoroutine(Wait());
-    }
+    public GameObject enemyWin;
+    public GameObject enemyLose;
+
+
 
     void Update()
     {
@@ -39,6 +39,7 @@ public class SceneController : MonoBehaviour
         }
         else if (turnSystem != null && turnSystem.win)
         {
+            enemyWin.GetComponent<Image>().sprite = turnSystem.enemy.GetComponent<SpriteRenderer>().sprite;
             win = true;
             GetCurrentScene();
             StartCoroutine(WaitBeforeDisplay());
@@ -47,6 +48,7 @@ public class SceneController : MonoBehaviour
         }
         else if (turnSystem != null && turnSystem.lose)
         {
+            enemyLose.GetComponent<Image>().sprite = turnSystem.enemy.GetComponent<SpriteRenderer>().sprite;
             win = false;
             StartCoroutine(WaitBeforeDisplay());
             lastPosition = Vector3.zero;
@@ -55,9 +57,19 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D other) {
+        lastPosition = transform.position;
+        canvas.SetActive(true);
+        Player.deck = new Deck();
+        for (int i = 0; i < 5; i++) {
+            Player.deck.deckCards.Add(guacamole);
+        }
+        StartCoroutine(Wait());
+    }
+
     IEnumerator WaitBeforeDisplay()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.1f);
     }
     IEnumerator Wait()
     {

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5646bfbf3dec5949b6b8febc766f89a, type: 3}
+  m_Name: Burger
+  m_EditorClassIdentifier: 
+  life: 20
+  enemyName: Burger
+  description: BORGER
+  cardDrops:
+  - {fileID: 11400000, guid: 89a3726ab8737f14ea6eb042495a30f9, type: 2}
+  - {fileID: 11400000, guid: de6b338db2f2957498d769e9d3ef6257, type: 2}
+  - {fileID: 11400000, guid: f93dc2ba17c260447b8c36a241631161, type: 2}
+  cardChance:
+  - 100
+  - 50
+  - 5
+  cardDeck:
+  - {fileID: 11400000, guid: cc95075241c08524484f678559125ce0, type: 2}
+  - {fileID: 11400000, guid: f93dc2ba17c260447b8c36a241631161, type: 2}
+  - {fileID: 11400000, guid: f93dc2ba17c260447b8c36a241631161, type: 2}
+  - {fileID: 11400000, guid: 127f4ab115c9935498bc00601f039033, type: 2}
+  - {fileID: 11400000, guid: 6bf84dfbc23a5c648bb0a5be15f74176, type: 2}
+  - {fileID: 11400000, guid: 89a3726ab8737f14ea6eb042495a30f9, type: 2}
+  - {fileID: 11400000, guid: de6b338db2f2957498d769e9d3ef6257, type: 2}
+  - {fileID: 11400000, guid: de6b338db2f2957498d769e9d3ef6257, type: 2}
+  image: {fileID: 21300000, guid: 7a22c60349f874c50af949987901e03d, type: 3}
+  color:
+    serializedVersion: 2
+    rgba: 0
