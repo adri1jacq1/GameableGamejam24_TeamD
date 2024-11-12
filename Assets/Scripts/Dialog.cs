@@ -32,6 +32,7 @@ public class Dialog : MonoBehaviour
 {
     public DialogManager dialogManager;
     public bool dialogOver = false;
+    public GameObject canvas;
 
 
     void Start()
@@ -43,6 +44,9 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Dialog1()
     {
+        yield return new WaitForSeconds(1.75f);
+        canvas.SetActive(false);
+
         DialogText dialog1 = new DialogText("I am exasperated.");
         DialogText dialog2 = new DialogText("I am Anna Nass, the principal of this school.");
         DialogText dialog3 = new DialogText("Ah...");
@@ -55,7 +59,7 @@ public class Dialog : MonoBehaviour
         yield return new WaitUntil(() => dialogManager.hasChosen == true);
         yield return new WaitUntil(() => dialogManager.isTyping == false);
 
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(1f);
         StartCoroutine(Dialog2());
     }
 
@@ -66,7 +70,7 @@ public class Dialog : MonoBehaviour
 
         yield return new WaitUntil(() => dialogManager.isTyping == false);
 
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(1f);
         StartCoroutine(Dialog3());
     }
 

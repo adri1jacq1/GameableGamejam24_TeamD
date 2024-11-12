@@ -25,6 +25,8 @@ public class DialogManager : MonoBehaviour
     {
         currentDialog = startingDialog;
         hasChosen = false;
+        choiceButton1.SetActive(false);
+        choiceButton2.SetActive(false);
         StartCoroutine(Type());
     }
 
@@ -62,6 +64,8 @@ public class DialogManager : MonoBehaviour
     public void OnChoiceMade(int choiceIndex)
     {
         hasChosen = true;
+        choiceButton1.SetActive(false);
+        choiceButton2.SetActive(false);
         DialogText nextDialog = null;
         if (currentDialog != null)
             nextDialog = currentDialog.choices[choiceIndex].nextDialog;
