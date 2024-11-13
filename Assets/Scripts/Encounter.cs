@@ -32,7 +32,6 @@ public class Encounter : MonoBehaviour {
         TurnSystem.fightIndex = index;
         TurnSystem.enemySprite = sprite;
         TurnSystem.enemyStats = stats;
-        TurnSystem.enemyLife = stats.life;
         StartCoroutine(Wait());
     }
 

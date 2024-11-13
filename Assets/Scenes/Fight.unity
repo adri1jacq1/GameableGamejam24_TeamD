@@ -1467,26 +1467,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd59c872f0970de4e85edac236ba59ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDeck: {fileID: 765310513}
-  enemyDeck: {fileID: 1685923086}
+  playerDeckTemplate: {fileID: 765310513}
+  enemyDeckTemplate: {fileID: 1685923086}
   playerLifeBar: {fileID: 992006008}
   enemyLifeBar: {fileID: 563143852}
   backGound: {fileID: 1545800032}
   modifier: 3
-  playerShielded: 0
-  enemyShielded: 0
   punchSound: {fileID: 8300000, guid: dc7c3b3df18465c498c64540b6c8f7f4, type: 3}
   healSound: {fileID: 8300000, guid: d86b25427a5613644937d9de47a2d58c, type: 3}
   shieldSound: {fileID: 8300000, guid: 2a77afa1150c00a43810b88680639947, type: 3}
   source: {fileID: 1141921425}
-  player: {fileID: 992006008}
   playerShield: {fileID: 395132375}
   enemyShield: {fileID: 1009523915}
-  playerLife: 10
-  playerMaxLife: 10
   playerLifeText: {fileID: 1096740840}
   enemyLifeText: {fileID: 1952291556}
-  enemy: {fileID: 954570034}
+  enemyObj: {fileID: 954570034}
   cardContainer: {fileID: 0}
   finished: 0
   lose: 0

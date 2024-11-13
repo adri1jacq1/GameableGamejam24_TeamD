@@ -42,7 +42,7 @@ public class SceneController : MonoBehaviour
         }
         else if (turnSystem != null && turnSystem.win)
         {
-            enemyWin.GetComponent<Image>().sprite = turnSystem.enemy.GetComponent<SpriteRenderer>().sprite;
+            enemyWin.GetComponent<Image>().sprite = turnSystem.enemyObj.GetComponent<SpriteRenderer>().sprite;
             backGroundWin.GetComponent<Image>().sprite = turnSystem.backGound.GetComponent<SpriteRenderer>().sprite;
             win = true;
             GetCurrentScene();
@@ -52,7 +52,7 @@ public class SceneController : MonoBehaviour
         }
         else if (turnSystem != null && turnSystem.lose)
         {
-            enemyLose.GetComponent<Image>().sprite = turnSystem.enemy.GetComponent<SpriteRenderer>().sprite;
+            enemyLose.GetComponent<Image>().sprite = turnSystem.enemyObj.GetComponent<SpriteRenderer>().sprite;
             backGroundLose.GetComponent<Image>().sprite = turnSystem.backGound.GetComponent<SpriteRenderer>().sprite;
             win = false;
             StartCoroutine(WaitBeforeDisplay());
@@ -65,12 +65,12 @@ public class SceneController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other) {
         lastPosition = transform.position;
         canvas.SetActive(true);
-        Player.deck = new Deck();
+        TurnSystem.player = new Player(20);
         for (int i = 0; i < 5; i++) {
-            Player.deck.deckCards.Add(guacamole);
+            TurnSystem.player.deck.deckCards.Add(guacamole);
         }
         for (int i = 0; i < 5; i++) {
-            Player.deck.deckCards.Add(tomato);
+            TurnSystem.player.deck.deckCards.Add(tomato);
         }
         StartCoroutine(Wait());
     }
