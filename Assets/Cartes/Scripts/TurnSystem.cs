@@ -6,72 +6,69 @@ using TMPro;
 public class TurnSystem : MonoBehaviour {
 
     public static Player player;
+    public Deck playerDeckTemplate;
+
+    public GameObject playerShield;
+    public GameObject playerLifeBar;
+    public TextMeshPro playerLifeText;
+
     public static Player enemy;
+    public GameObject enemyObj;
+    public static Sprite enemySprite;
+    public static EnemyStats enemyStats;
+    public Deck enemyDeckTemplate;
+    public static List<Card> enemyDeckCards;
+    public static int fightIndex;
+
+    public GameObject enemyShield;
+    public GameObject enemyLifeBar;
+    public TextMeshPro enemyLifeText;
+
     public static bool isPlayerTurn = false;
 
-    public Deck playerDeckTemplate;
-    public Deck enemyDeckTemplate;
 
-    public GameObject playerLifeBar;
-    public GameObject enemyLifeBar;
-
-    public static List<Card> enemyDeckCards;
 
     public GameObject backGound;
 
-    public float modifier;
 
-    public AudioClip punchSound;
-    public AudioClip healSound;
-    public AudioClip shieldSound;
-
-    public AudioSource source;
-
-    public GameObject playerShield;
-    public GameObject enemyShield;
-
-
-    public TextMeshPro playerLifeText;
-    public TextMeshPro enemyLifeText;
-
-    public GameObject enemyObj;
 
     public GameObject cardContainer;
 
-    public bool finished = false;
-    public bool lose = false;
-    public bool win = false;
-
-    [SerializeField] private bool isEnemy;
-
-    public static int fightIndex;
-    public static Sprite enemySprite;
-
-    public static EnemyStats enemyStats;
+    public static bool finished;
+    public static bool lose;
+    public static bool win;
 
 
-    private void UpdateLifeBar(Player p, GameObject lifeBar, TextMeshPro text) {
-        lifeBar.transform.localScale = new Vector2((p.life) * 1f/p.maxLife * modifier, lifeBar.transform.localScale.y);
-        text.text = p.life + "/" + p.maxLife;
-    }
 
     public void Start() {
+        finished = false;
+        win = false;
+        lose = false;
+
 
         backGound.GetComponent<SpriteRenderer>().sprite = enemyStats.background;
         backGound.transform.localScale *= enemyStats.scaling;
 
         enemy = new Player(enemyStats.life, new Deck(enemyDeckCards, enemyDeckTemplate));
 
+        enemy.lifeBar = enemyLifeBar;
+        enemy.lifeText = enemyLifeText;
+        enemy.shield = enemyShield;
+
+        enemy.fightIndex = fightIndex;
+        enemy.enemyStats = enemyStats;
+
+
         player.fightDeck = new Deck(player.deck.deckCards, playerDeckTemplate);
 
+        player.lifeBar = playerLifeBar;
+        player.lifeText = playerLifeText;
+        player.shield = playerShield;
 
-        UpdateLifeBar(enemy, enemyLifeBar, enemyLifeText);
-        UpdateLifeBar(player, playerLifeBar, playerLifeText);
+        player.UpdateLifeBar();
+        enemy.UpdateLifeBar();
 
         enemyObj.GetComponent<SpriteRenderer>().sprite = enemySprite;
-
-        int i = 0;
-
 
         enemy.fightDeck.Shuffle();
         player.fightDeck.Shuffle();
@@ -91,12 +88,6 @@ public class TurnSystem : MonoBehaviour {
     private IEnumerator PlayBot() {
 
         if (!finished) {
-
-            if (enemy.isShielded) {
-                enemyShield.SetActive(false);
-                enemy.isShielded = false;
-            }
-
             yield return new WaitForSeconds(0.1f);
 
             enemy.fightDeck.DrawCard();
@@ -109,7 +100,8 @@ public class TurnSystem : MonoBehaviour {
             for (int i = 0; i < enemy.fightDeck.hand.hand.Count; i++) {  /*quand joueur shielded vaut plus la peine de heal*/
                 card = enemy.fightDeck.hand.hand[rand];
                 stats = card.GetComponent<CardStyle>().cardStats;
-                if (player.isShielded && stats.healing > stats.attack) {
+                if (player.actions.effectsList.ContainsKey("shield") && stats.healing > stats.attack) {
+                    Debug.Log("quand joueur shielded vaut plus la peine de heal");
                     chosen = true;
                     break;
                 }
@@ -120,7 +112,8 @@ public class TurnSystem : MonoBehaviour {
                 for (int i = 0; i < enemy.fightDeck.hand.hand.Count; i++) { /*sinon si on peut le tuer... :) */
                     card = enemy.fightDeck.hand.hand[rand];
                     stats = card.GetComponent<CardStyle>().cardStats;
-                    if (!player.isShielded && player.life <= stats.attack) {
+                    if (!player.actions.effectsList.ContainsKey("shield") && player.life <= stats.attack) {
+                        Debug.Log("sinon si on peut le tuer... :)");
                         chosen = true;
                         break;
                     }
@@ -132,7 +125,8 @@ public class TurnSystem : MonoBehaviour {
                 for (int i = 0; i < enemy.fightDeck.hand.hand.Count; i++) { /*sinon vaut plus la peine d'attaquer (heal innutile)*/
                     card = enemy.fightDeck.hand.hand[rand];
                     stats = card.GetComponent<CardStyle>().cardStats;
-                    if (!player.isShielded && enemy.maxLife - enemy.maxLife < stats.attack) {
+                    if (!player.actions.effectsList.ContainsKey("shield") && enemy.maxLife - enemy.life < stats.attack) {
+                        Debug.Log("sinon vaut plus la peine d'attaquer (heal innutile)");
                         chosen = true;
                         break;
                     }
@@ -145,6 +139,7 @@ public class TurnSystem : MonoBehaviour {
                     card = enemy.fightDeck.hand.hand[rand];
                     stats = card.GetComponent<CardStyle>().cardStats;
                     if (stats.healing > stats.attack && enemy.maxLife - enemy.life >= stats.healing) {
+                        Debug.Log("sinon vaut plus la peine de heal (totalité)");
                         chosen = true;
                         break;
                     }
@@ -157,6 +152,7 @@ public class TurnSystem : MonoBehaviour {
                     card = enemy.fightDeck.hand.hand[rand];
                     stats = card.GetComponent<CardStyle>().cardStats;
                     if (stats.givesDefense) {
+                        Debug.Log("sinon si on peut shield");
                         break;
                     }
                     rand++;
@@ -184,8 +180,9 @@ public class TurnSystem : MonoBehaviour {
                     yield return new WaitForSeconds(0.05f);
                     card.transform.position += (enemyLifeBar.transform.position - initPos).normalized;
                 }
-                StartCoroutine(HealEnemy(stats.healing));
-                StartCoroutine(ShieldEnemy(stats.givesDefense));
+                StartCoroutine(Heal(enemy, stats.healing)); if (stats.givesDefense) {
+                    enemy.actions.AddPlayerStatusEffect(new PlayerStatusEffectBlock(enemy, 1));
+                }
 
             } else {
                 enemy.fightDeck.hand.RemoveCard(cardContainer);
@@ -194,17 +191,12 @@ public class TurnSystem : MonoBehaviour {
                     yield return new WaitForSeconds(0.05f);
                     card.transform.position += (playerLifeBar.transform.position - initPos).normalized;
                 }
-                StartCoroutine(DamageSelf(stats.attack));
+                StartCoroutine(Damage(player, stats.attack));
 
             }
 
             enemy.fightDeck.PlaceBackCard(cardContainer);
             yield return new WaitForSeconds(0.1f);
-
-            if (player.isShielded) {
-                playerShield.SetActive(false);
-                player.isShielded = false;
-            }
 
             yield return new WaitForSeconds(0.1f);
 
@@ -225,7 +217,7 @@ public class TurnSystem : MonoBehaviour {
                     yield return new WaitForSeconds(0.05f);
                     cardObj.transform.position += (enemyLifeBar.transform.position - initPos).normalized;
                 }
-                StartCoroutine(DamageEnemy(stats.attack));
+                StartCoroutine(Damage(enemy,stats.attack));
 
             } else {
                 Vector3 initPos = cardObj.transform.position;
@@ -233,8 +225,10 @@ public class TurnSystem : MonoBehaviour {
                     yield return new WaitForSeconds(0.05f);
                     cardObj.transform.position += (playerLifeBar.transform.position - initPos).normalized;
                 }
-                StartCoroutine(HealSelf(stats.healing));
-                StartCoroutine(ShieldSelf(stats.givesDefense));
+                StartCoroutine(Heal(player, stats.healing));
+                if (stats.givesDefense) {
+                    player.actions.AddPlayerStatusEffect(new PlayerStatusEffectBlock(player, 1));
+                }   //remplacer par un applyStatusEffectBlock
 
             }
             StartCoroutine(PlayBot());
@@ -242,89 +236,15 @@ public class TurnSystem : MonoBehaviour {
         }
     }
 
-    public IEnumerator DamageEnemy(int attack) {
-        StartCoroutine(ChangeLifeEnemy(-1 * attack));
+    public IEnumerator Damage(Player target, int attack) {
+        StartCoroutine(target.actions.ChangeLife(-1 * attack));
         yield return new WaitForSeconds(0.01f);
-        source.PlayOneShot(punchSound);
+        AudioFXManager.Instance.PlaySound("damage");
     }
 
-    public IEnumerator DamageSelf(int attack) {
-        StartCoroutine(ChangeLifeSelf(-1 * attack));
+    public IEnumerator Heal(Player target, int healing) {
+        StartCoroutine(target.actions.ChangeLife(healing));
         yield return new WaitForSeconds(0.01f);
-        source.PlayOneShot(punchSound);
+        AudioFXManager.Instance.PlaySound("heal");
     }
-
-    public IEnumerator HealSelf(int healing) {
-        StartCoroutine(ChangeLifeSelf(healing));
-        yield return new WaitForSeconds(0.01f);
-        source.PlayOneShot(healSound);
-    }
-
-    public IEnumerator HealEnemy(int healing) {
-        StartCoroutine(ChangeLifeEnemy(healing));
-        yield return new WaitForSeconds(0.01f);
-        source.PlayOneShot(healSound);
-    }
-    public IEnumerator ShieldSelf(bool canShield) {
-        if (canShield) {
-            yield return new WaitForSeconds(0.01f);
-            playerShield.SetActive(true);
-            player.isShielded = true;
-            source.PlayOneShot(shieldSound);
-        }
-    }
-    public IEnumerator ShieldEnemy(bool canShield) {
-        if (canShield) {
-            yield return new WaitForSeconds(0.01f);
-            enemyShield.SetActive(true);
-            enemy.isShielded = true;
-            source.PlayOneShot(shieldSound);
-        }
-    }
-
-
-    public IEnumerator ChangeLifeSelf(int life) {
-        if (!player.isShielded) {
-            player.life += life;
-            if (player.life > player.maxLife) {
-                player.life = player.maxLife;
-            }
-            if (player.life <= 0) {
-                playerLifeBar.SetActive(false);
-                playerLifeText.text = 0 + "";
-                finished = true;
-                yield return new WaitForSeconds(1f);
-                lose = true;
-            } else {
-                UpdateLifeBar(player, playerLifeBar, playerLifeText);
-            }
-        }
-    }
-
-    public IEnumerator ChangeLifeEnemy(int life) {
-        if (!enemy.isShielded) {
-            enemy.life += life;
-            if (enemy.life > enemy.maxLife) {
-                enemy.life = enemy.maxLife;
-            }
-            if (enemy.life <= 0) {
-                enemyLifeBar.SetActive(false);
-                enemyLifeText.text = 0 + "";
-                finished = true;
-                yield return new WaitForSeconds(1f);
-                win = true;
-                EnemySpawning.canSpawn[fightIndex] = false;
-
-                for (int i = 0; i < enemyStats.cardDrops.Count; i++) {
-                    int rand = Random.Range(0, 100);
-                    if (rand < enemyStats.cardChance[i]) {
-                        player.deck.deckCards.Add(enemyStats.cardDrops[i]);
-                    }
-                }
-            } else {
-                UpdateLifeBar(enemy, enemyLifeBar, enemyLifeText);
-            }
-        }
-    }
-
 }

@@ -40,7 +40,7 @@ public class SceneController : MonoBehaviour
             canvas.SetActive(true);
             StartCoroutine(Wait());
         }
-        else if (turnSystem != null && turnSystem.win)
+        else if (turnSystem != null && TurnSystem.win)
         {
             enemyWin.GetComponent<Image>().sprite = turnSystem.enemyObj.GetComponent<SpriteRenderer>().sprite;
             backGroundWin.GetComponent<Image>().sprite = turnSystem.backGound.GetComponent<SpriteRenderer>().sprite;
@@ -50,7 +50,7 @@ public class SceneController : MonoBehaviour
             canvas.SetActive(true);
             StartCoroutine(Wait());
         }
-        else if (turnSystem != null && turnSystem.lose)
+        else if (turnSystem != null && TurnSystem.lose)
         {
             enemyLose.GetComponent<Image>().sprite = turnSystem.enemyObj.GetComponent<SpriteRenderer>().sprite;
             backGroundLose.GetComponent<Image>().sprite = turnSystem.backGound.GetComponent<SpriteRenderer>().sprite;

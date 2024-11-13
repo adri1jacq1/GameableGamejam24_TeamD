@@ -43,7 +43,7 @@ public class Dialog : MonoBehaviour
     }
 
     IEnumerator Dialog1() {
-        yield return new WaitForSeconds(1.75f);
+        //yield return new WaitForSeconds(1.75f);
         canvas.SetActive(false);
 
         DialogText dialog1 = new DialogText("I am exasperated.");
@@ -58,8 +58,10 @@ public class Dialog : MonoBehaviour
         yield return new WaitUntil(() => dialogManager.hasChosen == true);
         yield return new WaitUntil(() => dialogManager.isTyping == false);
 
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(Dialog2());
+        //yield return new WaitForSeconds(1f);
+        //StartCoroutine(Dialog2());
+
+        dialogOver = true;
     }
 
     IEnumerator Dialog2()
@@ -69,7 +71,7 @@ public class Dialog : MonoBehaviour
 
         yield return new WaitUntil(() => dialogManager.isTyping == false);
 
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
         StartCoroutine(Dialog3());
     }
 

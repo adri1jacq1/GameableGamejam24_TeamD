@@ -1209,7 +1209,7 @@ MonoBehaviour:
   buttonText1: {fileID: 500508688}
   buttonText2: {fileID: 1396469959}
   choiceButton2: {fileID: 1918047426}
-  typingSpeed: 0.05
+  typingSpeed: 0.00001
   isTyping: 1
   hasChosen: 0
 --- !u!4 &1279487565
@@ -1677,7 +1677,9 @@ MonoBehaviour:
   dialog: {fileID: 1279487566}
   turnSystem: {fileID: 0}
   enemyWin: {fileID: 0}
+  backGroundWin: {fileID: 0}
   enemyLose: {fileID: 0}
+  backGroundLose: {fileID: 0}
 --- !u!212 &1584391439
 SpriteRenderer:
   m_ObjectHideFlags: 0
