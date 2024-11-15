@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9195319c02c788742ba53ebb9d19ba62, type: 3}
   m_Name: Bacon
   m_EditorClassIdentifier: 
-  attack: 8
-  healing: 1
   cardName: Bacon
   description: So good but yet so bad
-  givesDefense: 0
+  effects: 00000000
+  targets: 01000000
+  effectsAmount: 08000000
   image: {fileID: 21300000, guid: cfff38bfe0b8c8d47b92293d239347e2, type: 3}
   backGround: {fileID: 21300000, guid: 41e08f4b15cdbde4fadf766a4c0cdfb7, type: 3}
   color:

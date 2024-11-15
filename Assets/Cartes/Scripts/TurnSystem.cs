@@ -12,7 +12,7 @@ public class TurnSystem : MonoBehaviour {
     public GameObject playerLifeBar;
     public TextMeshPro playerLifeText;
 
-    public static Player enemy;
+    public Player enemy;
     public GameObject enemyObj;
     public static Sprite enemySprite;
     public static EnemyStats enemyStats;
@@ -41,6 +41,8 @@ public class TurnSystem : MonoBehaviour {
 
 
     public void Start() {
+
+
         finished = false;
         win = false;
         lose = false;
@@ -58,12 +60,18 @@ public class TurnSystem : MonoBehaviour {
         enemy.fightIndex = fightIndex;
         enemy.enemyStats = enemyStats;
 
+        enemy.playerName = "enemy";
+
+
 
         player.fightDeck = new Deck(player.deck.deckCards, playerDeckTemplate);
 
         player.lifeBar = playerLifeBar;
         player.lifeText = playerLifeText;
         player.shield = playerShield;
+
+        player.playerName = "player";
+
 
         player.UpdateLifeBar();
         enemy.UpdateLifeBar();
@@ -92,111 +100,89 @@ public class TurnSystem : MonoBehaviour {
 
             enemy.fightDeck.DrawCard();
 
-            bool chosen = false;
             yield return new WaitForSeconds(0.1f);
-            GameObject card = null;
-            Card stats = null;
             int rand = Random.Range(0, enemy.fightDeck.hand.hand.Count);
-            for (int i = 0; i < enemy.fightDeck.hand.hand.Count; i++) {  /*quand joueur shielded vaut plus la peine de heal*/
-                card = enemy.fightDeck.hand.hand[rand];
-                stats = card.GetComponent<CardStyle>().cardStats;
-                if (player.actions.effectsList.ContainsKey("shield") && stats.healing > stats.attack) {
-                    Debug.Log("quand joueur shielded vaut plus la peine de heal");
-                    chosen = true;
-                    break;
-                }
-                rand++;
-                rand %= enemy.fightDeck.hand.hand.Count;
-            }
-            if (!chosen) {
-                for (int i = 0; i < enemy.fightDeck.hand.hand.Count; i++) { /*sinon si on peut le tuer... :) */
-                    card = enemy.fightDeck.hand.hand[rand];
-                    stats = card.GetComponent<CardStyle>().cardStats;
-                    if (!player.actions.effectsList.ContainsKey("shield") && player.life <= stats.attack) {
-                        Debug.Log("sinon si on peut le tuer... :)");
-                        chosen = true;
-                        break;
-                    }
-                    rand++;
-                    rand %= enemy.fightDeck.hand.hand.Count;
-                }
-            }
-            if (!chosen) {
-                for (int i = 0; i < enemy.fightDeck.hand.hand.Count; i++) { /*sinon vaut plus la peine d'attaquer (heal innutile)*/
-                    card = enemy.fightDeck.hand.hand[rand];
-                    stats = card.GetComponent<CardStyle>().cardStats;
-                    if (!player.actions.effectsList.ContainsKey("shield") && enemy.maxLife - enemy.life < stats.attack) {
-                        Debug.Log("sinon vaut plus la peine d'attaquer (heal innutile)");
-                        chosen = true;
-                        break;
-                    }
-                    rand++;
-                    rand %= enemy.fightDeck.hand.hand.Count;
-                }
-            }
-            if (!chosen) {
-                for (int i = 0; i < enemy.fightDeck.hand.hand.Count; i++) { /*sinon vaut plus la peine de heal (totalité)*/
-                    card = enemy.fightDeck.hand.hand[rand];
-                    stats = card.GetComponent<CardStyle>().cardStats;
-                    if (stats.healing > stats.attack && enemy.maxLife - enemy.life >= stats.healing) {
-                        Debug.Log("sinon vaut plus la peine de heal (totalité)");
-                        chosen = true;
-                        break;
-                    }
-                    rand++;
-                    rand %= enemy.fightDeck.hand.hand.Count;
-                }
-            }
-            if (!chosen) {
-                for (int i = 0; i < enemy.fightDeck.hand.hand.Count; i++) { /*sinon si on peut shield*/
-                    card = enemy.fightDeck.hand.hand[rand];
-                    stats = card.GetComponent<CardStyle>().cardStats;
-                    if (stats.givesDefense) {
-                        Debug.Log("sinon si on peut shield");
-                        break;
-                    }
-                    rand++;
-                    rand %= enemy.fightDeck.hand.hand.Count;
-                }
-            }
-            //Sinon on prend une carte random
+            GameObject chosenCard = null;
+            float bestGoodModifier = 0;
+            float bestBadModifier = 0;
+            foreach (GameObject card in enemy.fightDeck.hand.hand) {
 
-            enemy.fightDeck.hand.RemoveCard(card);
-            card.GetComponent<CardStyle>().toggleFront(true);
+                float goodModifier = 0;
+                float badModifier = 0;
 
-            card.transform.position += new Vector3(0f, 0f, -2f);
+                CardInfo info = card.GetComponent<CardInfo>();
+                foreach (StatusEffectType effectType in info.actions.allEffects.Keys) {
+                    if (info.actions.allEffects[effectType].targets == ElligibleTarget.Self) {
+                        goodModifier += StatusEffectFactory.GetStatusEffectModifier(effectType) * info.actions.allEffects[effectType].amount;
+                    } else if (info.actions.allEffects[effectType].targets == ElligibleTarget.Enemy) {
+                        badModifier -= StatusEffectFactory.GetStatusEffectModifier(effectType) * info.actions.allEffects[effectType].amount;
+                    } else if (info.actions.allEffects[effectType].targets == ElligibleTarget.Both) {
+                        goodModifier += StatusEffectFactory.GetStatusEffectModifier(effectType) * info.actions.allEffects[effectType].amount;
+                        badModifier -= StatusEffectFactory.GetStatusEffectModifier(effectType) * info.actions.allEffects[effectType].amount;
+                    }
+
+                }
+                foreach (StatusEffect playerEffect in player.actions.allEffects.Values) {
+                    badModifier -= playerEffect.modifier * playerEffect.amount;
+                }
+
+                goodModifier *= (enemy.maxLife - enemy.life);
+
+                if (goodModifier > bestGoodModifier ) {
+                    bestGoodModifier = goodModifier;
+                    if (bestGoodModifier > bestBadModifier) {
+                        chosenCard = card;
+                        Debug.Log("New Good best is: " + card.GetComponent<CardInfo>().cardStats.cardName + ": " + goodModifier);
+                    }
+                }
+                if (badModifier > bestBadModifier) {
+                    bestBadModifier = badModifier;
+                    if (bestBadModifier > bestGoodModifier) {
+                        chosenCard = card;
+                        Debug.Log("New Bad Best is: " + card.GetComponent<CardInfo>().cardStats.cardName + ": " + badModifier);
+                    }
+                }
+            }
+
+            if (chosenCard == null) {
+                chosenCard = enemy.fightDeck.hand.hand[0];
+            }
+
+            Debug.Log("Total good for Winner: " + chosenCard.GetComponent<CardInfo>().cardStats.cardName + ": " + bestGoodModifier);
+            Debug.Log("Total bad for Winner:" + chosenCard.GetComponent<CardInfo>().cardStats.cardName + ": " + bestBadModifier);
+
+            Player target;
+            if (bestGoodModifier > bestBadModifier) {
+                target = enemy;
+            } else if (bestBadModifier > bestGoodModifier) {
+                target = player;
+            } else {
+                int rando = Random.Range(0, 2);
+                if (rando == 0) {
+                    target = enemy;
+                } else {
+                    target = player;
+                }
+            }
+
+            cardContainer = chosenCard;
+
+            chosenCard.GetComponent<CardInfo>().toggleFront(true);
+            enemy.fightDeck.hand.RemoveCard(cardContainer);
+
+            chosenCard.transform.position += new Vector3(0f, 0f, -2f);
 
             for (int i = 0; i < 10; i++) {
                 yield return new WaitForSeconds(0.05f);
-                card.transform.position += new Vector3(0f, -0.1f, 0f);
+                chosenCard.transform.position += new Vector3(0f, -0.1f, 0f);
             }
+            yield return FlingCard(chosenCard, target);
 
-            yield return new WaitForSeconds(0.1f);
-            cardContainer = card;
-            if (stats.givesDefense || (stats.healing > stats.attack && enemy.life < enemy.maxLife)) {
-                enemy.fightDeck.hand.RemoveCard(cardContainer);
-                Vector3 initPos = card.transform.position;
-                while (Vector3.Distance(card.transform.position, enemyLifeBar.transform.position) > 1f) {
-                    yield return new WaitForSeconds(0.05f);
-                    card.transform.position += (enemyLifeBar.transform.position - initPos).normalized;
-                }
-                StartCoroutine(Heal(enemy, stats.healing)); if (stats.givesDefense) {
-                    enemy.actions.AddPlayerStatusEffect(new PlayerStatusEffectBlock(enemy, 1));
-                }
+            chosenCard.GetComponent<CardInfo>().actions.RunPlayEvent(enemy, target);
 
-            } else {
-                enemy.fightDeck.hand.RemoveCard(cardContainer);
-                Vector3 initPos = card.transform.position;
-                while (Vector3.Distance(card.transform.position, playerLifeBar.transform.position) > 1f) {
-                    yield return new WaitForSeconds(0.05f);
-                    card.transform.position += (playerLifeBar.transform.position - initPos).normalized;
-                }
-                StartCoroutine(Damage(player, stats.attack));
-
-            }
+        
 
             enemy.fightDeck.PlaceBackCard(cardContainer);
-            yield return new WaitForSeconds(0.1f);
 
             yield return new WaitForSeconds(0.1f);
 
@@ -204,47 +190,32 @@ public class TurnSystem : MonoBehaviour {
             isPlayerTurn = true;
         }
     }
+    
 
+
+    public IEnumerator FlingCard(GameObject card, Player character) {
+        Vector3 initPos = card.transform.position;
+        while (Vector3.Distance(card.transform.position, character.lifeBar.transform.position) > 1f) {
+            yield return new WaitForSeconds(0.05f);
+            card.transform.position += (character.lifeBar.transform.position - initPos).normalized;
+        }
+    }
     public IEnumerator UseCard(float xPos, GameObject cardObj) {
         if (!finished) {
 
-            Card stats = cardObj.GetComponent<CardStyle>().cardStats;
+            Card stats = cardObj.GetComponent<CardInfo>().cardStats;
             cardContainer = cardObj;
             yield return new WaitForEndOfFrame();
             if (xPos > 960) {
-                Vector3 initPos = cardObj.transform.position;
-                while (Vector3.Distance(cardObj.transform.position, enemyLifeBar.transform.position) > 1f) {
-                    yield return new WaitForSeconds(0.05f);
-                    cardObj.transform.position += (enemyLifeBar.transform.position - initPos).normalized;
-                }
-                StartCoroutine(Damage(enemy,stats.attack));
+                yield return FlingCard(cardObj, enemy);
+                cardObj.GetComponent<CardInfo>().actions.RunPlayEvent(player, enemy);
 
             } else {
-                Vector3 initPos = cardObj.transform.position;
-                while (Vector3.Distance(cardObj.transform.position, playerLifeBar.transform.position) > 1f) {
-                    yield return new WaitForSeconds(0.05f);
-                    cardObj.transform.position += (playerLifeBar.transform.position - initPos).normalized;
-                }
-                StartCoroutine(Heal(player, stats.healing));
-                if (stats.givesDefense) {
-                    player.actions.AddPlayerStatusEffect(new PlayerStatusEffectBlock(player, 1));
-                }   //remplacer par un applyStatusEffectBlock
-
+                yield return FlingCard(cardObj, player);
+                cardObj.GetComponent<CardInfo>().actions.RunPlayEvent(player, player);
             }
             StartCoroutine(PlayBot());
             player.fightDeck.PlaceBackCard(cardContainer);
         }
-    }
-
-    public IEnumerator Damage(Player target, int attack) {
-        StartCoroutine(target.actions.ChangeLife(-1 * attack));
-        yield return new WaitForSeconds(0.01f);
-        AudioFXManager.Instance.PlaySound("damage");
-    }
-
-    public IEnumerator Heal(Player target, int healing) {
-        StartCoroutine(target.actions.ChangeLife(healing));
-        yield return new WaitForSeconds(0.01f);
-        AudioFXManager.Instance.PlaySound("heal");
     }
 }

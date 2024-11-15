@@ -35,9 +35,9 @@ public class DialogManager : MonoBehaviour
         dialogText.text = "";
 
         char[] letters = currentDialog.text.ToCharArray();
+        isTyping = true;
         foreach (char letter in letters)
         {
-            isTyping = true;
             dialogText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }

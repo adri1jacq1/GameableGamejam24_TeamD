@@ -1,74 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+
+public delegate IEnumerator EffectAppliedEventHandler(StatusEffect effect);
 public class PlayerActions {
 
-    public Dictionary<string, PlayerStatusEffect> effectsList = new();
-    public Dictionary<string, PlayerStatusEffect> effectsToRemoveList = new();
+
+    public Dictionary<Type, StatusEffect> allEffects = new();
+
+    public void AddStatusEffect(StatusEffect effect) {
+        if (effect.isStackable && allEffects.ContainsKey(effect.GetType())) {
+            allEffects[effect.GetType()].amount += effect.amount;
+        } else if (!allEffects.ContainsKey(effect.GetType())) {
+            allEffects.Add(effect.GetType(), effect);
+        }
+    }
+
+
+    public event EffectAppliedEventHandler OnApplied;
+    public event EffectAppliedEventHandler OnDamaged;
+    public event EffectAppliedEventHandler OnHealed;
+
+
+    public bool RunApplyEvent(StatusEffect effect) {
+        if (OnApplied != null) {
+            foreach (EffectAppliedEventHandler handler in OnApplied.GetInvocationList()) {
+                CoroutineManager.Instance.RunCoroutine(handler(effect));
+            }
+        }
+        return true;
+    }
+
+    public bool RunDamageEvent(StatusEffect effect) {
+        if (OnDamaged != null) {
+            foreach (EffectAppliedEventHandler handler in OnDamaged.GetInvocationList()) {
+                CoroutineManager.Instance.RunCoroutine(handler(effect));
+            }
+        }
+        return true;
+    }
+
+    public bool RunHealEvent(StatusEffect effect) {
+        if (OnHealed != null) {
+            foreach (EffectAppliedEventHandler handler in OnHealed.GetInvocationList()) {
+                CoroutineManager.Instance.RunCoroutine(handler(effect));
+            }
+        }
+        return true;
+    }
+
     public PlayerActions(Player p) {
         player = p;
     }
 
     private Player player;
 
-
-    public void UpdateList() {
-        foreach (PlayerStatusEffect effect in effectsToRemoveList.Values) {
-            effectsList.Remove(effect.name);
-        }
-        effectsToRemoveList = new();
-    }
-    public void AddPlayerStatusEffectToRemove(PlayerStatusEffect effect) {
-        if (effect.isStackable && effectsToRemoveList.ContainsKey(effect.name)) {
-            effectsToRemoveList[effect.name].amount += effect.amount;
-        } else {
-            effectsToRemoveList[effect.name] = effect;
-        }
-    }
-
-    public void AddPlayerStatusEffect(PlayerStatusEffect effect) {
-        if (effect.isStackable && effectsList.ContainsKey(effect.name)) {
-            effectsList[effect.name].amount += effect.amount;
-        } else {
-            effectsList[effect.name] = effect;
-        }
-    }
-
-    public IEnumerator ChangeLife(int lifeChange) {
-        if (lifeChange > 0) {
-            if (lifeChange + player.life >= player.maxLife) {
-                lifeChange = player.maxLife - player.life;
-            }
-            /*foreach (PlayerStatusEffect action in effectsList.Values) {
-                lifeChange = action.GetTotalHealing(lifeChange);
-            }*/
-
-        } else if (lifeChange < 0) {
-            foreach (PlayerStatusEffect action in effectsList.Values) {
-                if (action is PlayerStatusEffectDamageRedux blockEffect) {
-                    lifeChange = blockEffect.GetTotalDamage(lifeChange);
-                }
-            }
-        }
-        player.life += lifeChange;
-        if (player.life <= 0) {
-            player.lifeBar.SetActive(false);
-            player.lifeText.text = 0 + "";
-            TurnSystem.finished = true;
-            yield return new WaitForSeconds(1f);
-            if (player.enemyStats != null) {
-                EnemySpawning.canSpawn[player.fightIndex] = false;
-                CoroutineManager.Instance.RunCoroutine(TurnSystem.player.CardRewards(player.enemyStats));
-
-            } else {
-                TurnSystem.lose = true;
-            }
-        } else {
-            player.UpdateLifeBar();
-        }
-        UpdateList();
-    }
 
 
 }

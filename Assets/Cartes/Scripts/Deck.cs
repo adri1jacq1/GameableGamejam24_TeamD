@@ -29,14 +29,12 @@ public class Deck : MonoBehaviour
         GameObject givenCard;
         if (deckCards.Count > 0) {
             givenCard = DisplayCard.CreateCard(deckCards[0]);
-            Debug.Log(deckCards.Count);
-            Debug.Log(givenCard);
             hand.AddCard(givenCard);
             givenCard.transform.localScale = new Vector3(scale, scale, scale);
             givenCard.GetComponent<Drag>().initScale = new Vector3(scale, scale, scale);
             givenCard.GetComponent<Drag>().hand = hand;
             if (isEnemy) {
-                givenCard.GetComponent<CardStyle>().toggleFront(false);
+                givenCard.GetComponent<CardInfo>().toggleFront(false);
             }
             deckCards.RemoveAt(0);
         }
@@ -44,7 +42,7 @@ public class Deck : MonoBehaviour
     }
 
     public void PlaceBackCard(GameObject card) {
-        deckCards.Add(card.GetComponent<CardStyle>().cardStats);
+        deckCards.Add(card.GetComponent<CardInfo>().cardStats);
         Destroy(card);
     }
 

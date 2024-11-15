@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9195319c02c788742ba53ebb9d19ba62, type: 3}
   m_Name: Fries
   m_EditorClassIdentifier: 
-  attack: 4
-  healing: 1
   cardName: Fries
   description: No Nutrients!
-  givesDefense: 0
+  effects: 0000000001000000
+  targets: 0100000001000000
+  effectsAmount: 0400000001000000
   image: {fileID: 21300000, guid: 9b2f7a26e3ff4634cb021a7dc3ea58ef, type: 3}
   backGround: {fileID: 21300000, guid: 21af12a67cf301f4bb1eec82791dc4b9, type: 3}
   color:

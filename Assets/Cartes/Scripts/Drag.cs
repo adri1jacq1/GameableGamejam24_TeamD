@@ -37,7 +37,6 @@ public class Drag : MonoBehaviour {
 
     void OnMouseUp() {
         if (TurnSystem.isPlayerTurn) {
-            Debug.Log(Input.mousePosition.x + "    " + Input.mousePosition.y);
 
             if (Input.mousePosition.y > 300) {
                 TurnSystem.isPlayerTurn = false;

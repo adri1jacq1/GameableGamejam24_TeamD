@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9195319c02c788742ba53ebb9d19ba62, type: 3}
   m_Name: Salad
   m_EditorClassIdentifier: 
-  attack: 3
-  healing: 3
   cardName: Cabbage
   description: Salady?
-  givesDefense: 0
+  effects: 0000000001000000
+  targets: 0100000000000000
+  effectsAmount: 0300000003000000
   image: {fileID: 21300000, guid: a8f2a1baba276064ba55d9fdf675ad61, type: 3}
   backGround: {fileID: 21300000, guid: 93ebea5312a2d4849ace536a22a9b582, type: 3}
   color:

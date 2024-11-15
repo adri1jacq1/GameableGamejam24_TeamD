@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9195319c02c788742ba53ebb9d19ba62, type: 3}
   m_Name: Cheese
   m_EditorClassIdentifier: 
-  attack: 1
-  healing: 4
   cardName: Cheese
   description: To much fat!
-  givesDefense: 0
+  effects: 01000000
+  targets: 02000000
+  effectsAmount: 05000000
   image: {fileID: 21300000, guid: f5779b00c2c6be946bd6a57565a3fc76, type: 3}
   backGround: {fileID: 21300000, guid: 7478a2895a367e34689f19ad25330461, type: 3}
   color:

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 
 public class Player : MonoBehaviour {
+    public string playerName;
     public Deck deck;
     public Deck fightDeck;
     public int life;

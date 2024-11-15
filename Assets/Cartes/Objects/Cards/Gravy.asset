@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9195319c02c788742ba53ebb9d19ba62, type: 3}
   m_Name: Gravy
   m_EditorClassIdentifier: 
-  attack: 2
-  healing: 1
   cardName: Gravy
   description: Stinky!
-  givesDefense: 0
+  effects: 00000000
+  targets: 01000000
+  effectsAmount: 02000000
   image: {fileID: 21300000, guid: 757d383c176f189448b1fa1a7d9b3627, type: 3}
   backGround: {fileID: 21300000, guid: 4861cd4819e6f7143831f4de301e24c9, type: 3}
   color:
